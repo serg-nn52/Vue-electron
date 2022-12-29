@@ -3,11 +3,8 @@
 import { app, protocol, BrowserWindow } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
-import * as fs from "fs";
-const path = require("path");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
-import { usb, getDeviceList } from "usb";
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -34,42 +31,11 @@ async function createWindow() {
   } else {
     createProtocol("app");
     // Load the index.html when not in development
-    win.loadURL("app://./index.html");
+    await win.loadURL("app://./index.html");
   }
   win.webContents.on("did-finish-load", () => {
     win.webContents.send("mainchannel", { message: "App running" });
   });
-
-  const sistemUSB = getDeviceList().map((el) => el.deviceDescriptor.idProduct);
-
-  const listener = (event?: keyof usb.DeviceEvents) => {
-    let devices: usb.Device[] = getDeviceList();
-    if (!event) {
-      win.webContents.send("mainchannel", { message: devices });
-    } else
-      usb.addListener(event, () => {
-        devices = getDeviceList();
-        const newDevise = devices.filter(
-          (el) => !sistemUSB.includes(el.deviceDescriptor.idProduct)
-        )[0];
-
-        win.webContents.send("mainchannel", { message: devices });
-
-        newDevise &&
-          win.webContents.send("addNewDevise", {
-            message: newDevise,
-          });
-
-        event === "detach" &&
-          win.webContents.send("addNewDevise", {
-            message: null,
-          });
-      });
-  };
-
-  listener();
-  listener("attach");
-  listener("detach");
 }
 
 // Quit when all windows are closed.

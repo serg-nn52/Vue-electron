@@ -4147,6 +4147,16 @@ dotenv@^9.0.2:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-9.0.2.tgz#dacc20160935a37dea6364aa1bef819fb9b6ab05"
   integrity sha512-I9OvvrHp4pIARv4+x9iuewrWycX6CcZtoAu1XrzPxc5UygMJXJZYmBsynku8IkrJwgypE5DGNjDPmPRhDCptUg==
 
+drivelist@^11.0.4:
+  version "11.0.4"
+  resolved "https://registry.yarnpkg.com/drivelist/-/drivelist-11.0.4.tgz#497dd7a1de0dda5184bacb0d4c946cba5688e779"
+  integrity sha512-97lLWiweopN8k4taCbPQXDK95zrDHWHL6CEOeUC9kPoJpnrmwxEortnDvF9T4dUzv1dIBtrnjTISQtDkseDSBQ==
+  dependencies:
+    bindings "^1.5.0"
+    debug "^4.3.4"
+    node-addon-api "^5.0.0"
+    prebuild-install "^7.1.1"
+
 duplexer3@^0.1.4:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/duplexer3/-/duplexer3-0.1.5.tgz#0b5e4d7bad5de8901ea4440624c8e1d20099217e"
@@ -7676,7 +7686,7 @@ postcss@^8.2.6, postcss@^8.3.5, postcss@^8.4.14, postcss@^8.4.19:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
-prebuild-install@^7.0.1:
+prebuild-install@^7.0.1, prebuild-install@^7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/prebuild-install/-/prebuild-install-7.1.1.tgz#de97d5b34a70a0c81334fd24641f2a1702352e45"
   integrity sha512-jAXscXWMcCK8GgCoHOfIr0ODh5ai8mj63L2nWrjuAgXE6tDyYGnx4/8o/rCgU+B4JSyZBKbeZqzhtwtC3ovxjw==
