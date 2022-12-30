@@ -38,10 +38,20 @@ export default Vue.extend({
       message: "",
       loading: false,
       sending: null as string | null,
-      check: [],
     };
   },
   methods: {
+    getDrives() {
+      this.drives = drivelist
+        .list()
+        .then((data: any[]) => {
+          this.drives = data.filter((el) => el.isUSB);
+          this.drives.forEach((el) => {
+            return { ...el, checked: false };
+          });
+        })
+        .catch((err: any) => console.error(err));
+    },
     writeFile(indexUSB: number) {
       fs.writeFile(
         `${this.drives[indexUSB].mountpoints[0].path}/electron/logs.txt`,
@@ -74,18 +84,10 @@ export default Vue.extend({
         }
       }
     },
-    getDrives() {
-      this.drives = drivelist.list().then((data: any[]) => {
-        this.drives = data.filter((el) => el.isUSB);
-        this.drives.forEach((el) => {
-          return { ...el, checked: false };
-        });
-      });
-    },
   },
   mounted() {
     this.getDrives();
-    usb.addListener("attach", () => setTimeout(() => this.getDrives(), 5000));
+    usb.addListener("attach", () => setTimeout(this.getDrives, 5000));
     usb.addListener("detach", this.getDrives);
   },
 });
